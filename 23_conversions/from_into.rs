@@ -44,6 +44,26 @@ impl Default for Person {
 
 impl From<&str> for Person {
     fn from(s: &str) -> Person {
+        if s.len() == 0 {
+            return Person::default();
+        }
+        let vec_s: Vec<_> = s.split(",").collect();
+        match vec_s[..] {
+            [name,age, ..] => {
+                let mut default = Person::default();
+                if name.len() > 0 {
+                    default.name = String::from(name);
+                };
+                if let Ok(age) = age.parse() {
+                    default.age = age 
+                };
+                default
+            },
+            [name] => {
+
+            },
+            [] => Person::default()
+        }
     }
 }
 
